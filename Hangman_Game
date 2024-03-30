@@ -1,0 +1,92 @@
+*** WORDS_LIST***
+    words_list=['abruptly','absurd','abyss','affix','askew','avenue','awkward','axiom','azure','bagpipes','bandwagon','banjo','bayou','beekeeper','bikini','blitz','blizzard','boggle','bookworm','boxcar','boxful','buckaroo','buffalo','buffoon','buxom','buzzard','buzzing','buzzwords','caliph','cobweb']
+
+
+*** HANGMAN_STAGES***
+    HANGMANPICS=['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========''',
+'''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========''',
+'''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========''',
+'''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''',
+'''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========''',
+'''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========''',
+'''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========''']
+
+
+***PYTHON_CODE***
+
+
+import random
+import hangman_stages
+import words
+chosen_word=random.choice(words.words_list)
+print(chosen_word)
+lives=6
+display=[]
+for i in chosen_word:
+    display+='_'
+print(display)
+game_over=False
+while not game_over:
+    guessed_letter=input("Guess a word: ").lower()
+    for i in range(len(chosen_word)):
+        letter=chosen_word[i]
+        if letter==guessed_letter:
+            display[i]=guessed_letter
+    if guessed_letter not in chosen_word:
+        lives-=1
+        if lives==0:
+            game_over=True
+            print("You lose!!")
+    if "_" not in display:
+        game_over=True
+        print("You win!!")
+    print(hangman_stages.HANGMANPICS[lives])
